@@ -7,7 +7,9 @@ services:
     staticPublishPath: .
     routes:
       - type: rewrite
-        src: /.*
+    routes:
+      - type: rewrite
+        src: /
         dest: /index-enhanced.html
     
     # Environment variables (add these in Render dashboard)
