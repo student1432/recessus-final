@@ -7,8 +7,6 @@ services:
     staticPublishPath: .
     routes:
       - type: rewrite
-    routes:
-      - type: rewrite
         src: /
         dest: /index-enhanced.html
     
