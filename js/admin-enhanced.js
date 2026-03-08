@@ -165,16 +165,16 @@ document.getElementById('refresh-delegates-btn').onclick = async () => {
         const delegatesSnapshot = await getDocs(collection(db, 'delegates'));
         let tableHTML = `
             <table style="width: 100%; border-collapse: collapse; font-family: 'Share Tech Mono', monospace; font-size: 0.85rem; color: white;">
-                <thead>
+                <thead style="position: sticky; top: 0; z-index: 10;">
                     <tr style="border-bottom: 2px solid var(--gold-solid); background: rgba(0,0,0,0.4);">
-                        <th style="padding: 1rem 0.5rem; text-align: left; color: var(--gold-solid);">DELEGATE</th>
-                        <th style="padding: 1rem 0.5rem; text-align: left; color: var(--gold-solid);">ALLOCATION</th>
-                        <th style="padding: 1rem 0.5rem; text-align: left; color: var(--gold-solid);">PARTICIPATION</th>
-                        <th style="padding: 1rem 0.5rem; text-align: left; color: var(--gold-solid);">VOTING</th>
-                        <th style="padding: 1rem 0.5rem; text-align: left; color: var(--gold-solid);">VIDEO</th>
-                        <th style="padding: 1rem 0.5rem; text-align: left; color: var(--gold-solid);">CURRENT VOTE</th>
-                        <th style="padding: 1rem 0.5rem; text-align: left; color: var(--gold-solid);">PASSCODE</th>
-                        <th style="padding: 1rem 0.5rem; text-align: left; color: var(--gold-solid);">ACTIONS</th>
+                        <th style="padding: 1rem 0.5rem; text-align: left; color: var(--gold-solid); position: sticky; top: 0; background: rgba(0,0,0,0.4);">DELEGATE</th>
+                        <th style="padding: 1rem 0.5rem; text-align: left; color: var(--gold-solid); position: sticky; top: 0; background: rgba(0,0,0,0.4);">ALLOCATION</th>
+                        <th style="padding: 1rem 0.5rem; text-align: left; color: var(--gold-solid); position: sticky; top: 0; background: rgba(0,0,0,0.4);">PARTICIPATION</th>
+                        <th style="padding: 1rem 0.5rem; text-align: left; color: var(--gold-solid); position: sticky; top: 0; background: rgba(0,0,0,0.4);">VOTING</th>
+                        <th style="padding: 1rem 0.5rem; text-align: left; color: var(--gold-solid); position: sticky; top: 0; background: rgba(0,0,0,0.4);">VIDEO</th>
+                        <th style="padding: 1rem 0.5rem; text-align: left; color: var(--gold-solid); position: sticky; top: 0; background: rgba(0,0,0,0.4);">CURRENT VOTE</th>
+                        <th style="padding: 1rem 0.5rem; text-align: left; color: var(--gold-solid); position: sticky; top: 0; background: rgba(0,0,0,0.4);">PASSCODE</th>
+                        <th style="padding: 1rem 0.5rem; text-align: left; color: var(--gold-solid); position: sticky; top: 0; background: rgba(0,0,0,0.4);">ACTIONS</th>
                     </tr>
                 </thead>
                 <tbody>
