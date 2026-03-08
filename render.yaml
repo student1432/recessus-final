@@ -1,0 +1,37 @@
+services:
+  # Static Web Service for the main application
+  - type: web
+    name: recessus-voting-system
+    env: static
+    buildCommand: "echo 'No build required for static site'"
+    staticPublishPath: .
+    routes:
+      - type: rewrite
+        src: /.*
+        dest: /index.html
+    
+    # Environment variables (add these in Render dashboard)
+    envVars:
+      - key: NODE_ENV
+        value: production
+      
+    # Headers for security and performance
+    headers:
+      - path: /*
+        name: X-Frame-Options
+        value: DENY
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: X-XSS-Protection
+        value: "1; mode=block"
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin
+      - path: /*
+        name: Permissions-Policy
+        value: "geolocation=(), microphone=(), camera=()"
+
+# Render configuration version
+version: "1"

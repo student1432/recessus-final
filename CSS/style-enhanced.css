@@ -1,0 +1,595 @@
+:root {
+    --deep-blue: #020617; 
+    --gold-metallic: linear-gradient(45deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+    --gold-solid: #d4af37;
+    --white: #ffffff;
+    --success-green: #2ecc71;
+    --danger-red: #e74c3c;
+    --warning-orange: #f39c12;
+    --glass-blue: rgba(15, 23, 42, 0.6);
+    --border: rgba(212, 175, 55, 0.2);
+    --accent: #00d2ff;
+}
+
+body {
+    background: linear-gradient(180deg, #020617 0%, #081226 100%);
+    color: var(--white);
+    font-family: 'Gideon Roman', serif;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+/* TOP RIGHT LOGO */
+.top-right-branding {
+    position: absolute;
+    top: 40px;
+    right: 50px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    z-index: 1000;
+}
+
+.branding-text {
+    font-family: 'Cinzel', serif;
+    font-size: 0.8rem;
+    color: var(--gold-solid);
+    letter-spacing: 3px;
+    border-right: 1px solid var(--gold-solid);
+    padding-right: 15px;
+}
+
+.mini-logo { width: 45px; filter: drop-shadow(0 0 10px var(--gold-solid)); }
+
+/* GIGANTIC GOLD TITLE */
+.hero { height: 100vh; display: flex; justify-content: center; align-items: center; text-align: center; }
+
+.gigantic-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(3rem, 12vw, 10rem);
+    background: var(--gold-metallic);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 10px 30px rgba(212, 175, 55, 0.7));
+    margin: 0;
+    line-height: 0.9;
+}
+
+/* DECORATED LETTER BOX */
+.letter-frame {
+    background: var(--glass-blue);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    padding: 5rem;
+    position: relative;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+}
+
+.gold-heading {
+    font-family: 'Cinzel', serif;
+    color: var(--gold-solid);
+    letter-spacing: 5px;
+    margin-bottom: 2rem;
+}
+
+.signature {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.5rem;
+    color: var(--gold-solid);
+    margin-top: 3rem;
+}
+
+/* TEAM SIGNATURE */
+.team-cursive {
+    font-family: 'Great Vibes', cursive;
+    font-size: 3.5rem;
+    background: var(--gold-metallic);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* REVEAL LOGIC */
+.reveal { opacity: 0; transition: all 1.2s ease-out; }
+.reveal.active { opacity: 1; transform: translateY(0); }
+
+/* FORCE CENTER ALIGNMENT */
+.centered-content {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.letter-content {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* GOLD ACTION BUTTONS */
+.gold-action-btn {
+    display: inline-block;
+    padding: 1.2rem 2.5rem;
+    background: var(--gold-metallic);
+    color: var(--deep-blue);
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    text-decoration: none;
+    letter-spacing: 2px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.gold-action-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 40px rgba(212, 175, 55, 0.7);
+}
+
+.gold-action-btn:active {
+    transform: scale(0.98);
+}
+
+/* LOGIN CARD STYLING */
+.login-card {
+    background: var(--glass-blue);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    padding: 4rem;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+input, select {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid var(--gold-solid);
+    padding: 1rem;
+    color: white;
+    margin-bottom: 2rem;
+    font-family: 'Gideon Roman', serif;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-bottom-color: var(--accent);
+    box-shadow: 0 2px 8px rgba(0, 210, 255, 0.3);
+}
+
+select option {
+    background: var(--deep-blue);
+    color: var(--white);
+}
+
+/* TERMINAL SPECIFIC STYLES */
+.terminal-body {
+    background: radial-gradient(circle at top, #061229 0%, #020617 100%);
+    min-height: 100vh;
+}
+
+.terminal-nav {
+    padding: 2rem 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border);
+    background: rgba(2, 6, 23, 0.8);
+    backdrop-filter: blur(10px);
+}
+
+.gold-label {
+    color: var(--gold-solid);
+    font-family: 'Cinzel', serif;
+    letter-spacing: 2px;
+}
+
+.terminal-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 30px;
+    padding: 0 5%;
+    margin-bottom: 5rem;
+}
+
+.video-frame {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: #000;
+    border: 1px solid var(--gold-solid);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 30px rgba(0,0,0,0.8);
+}
+
+.gold-border-btn {
+    background: transparent;
+    border: 1px solid var(--gold-solid);
+    color: var(--gold-solid);
+    padding: 0.8rem 1.5rem;
+    font-family: 'Cinzel', serif;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.gold-border-btn:hover {
+    background: var(--gold-solid);
+    color: var(--deep-blue);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+}
+
+/* ASSETS GRID ALIGNMENT */
+.assets-grid {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin-top: 3rem;
+}
+
+/* THE DOSSIER CARD */
+.assets-grid .detail-card {
+    flex: 1;
+    min-width: 350px;
+    max-width: 450px;
+    text-align: center;
+    background: var(--glass-blue);
+    border: 1px solid var(--border);
+    padding: 3.5rem;
+    transition: all 0.5s ease;
+    backdrop-filter: blur(10px);
+}
+
+.assets-grid .detail-card:hover {
+    border-color: var(--gold-solid);
+    transform: translateY(-10px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+}
+
+/* DETAIL CARDS */
+.detail-card {
+    background: var(--glass-blue);
+    border: 1px solid var(--border);
+    padding: 3rem;
+    margin-bottom: 2rem;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.detail-card:hover {
+    border-color: var(--gold-solid);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* VOTING COMPONENTS */
+#voting-section {
+    max-width: 800px;
+    margin: 0 auto 3rem auto;
+}
+
+.voting-interface {
+    background: var(--glass-blue);
+    border: 2px solid var(--gold-solid);
+    padding: 2rem;
+    border-radius: 8px;
+}
+
+#resolution-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1.8rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    text-shadow: 0 2px 10px rgba(212, 175, 55, 0.5);
+}
+
+#vote-options {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    margin: 2rem 0;
+    flex-wrap: wrap;
+}
+
+#vote-in-favour {
+    background: linear-gradient(45deg, var(--success-green), #27ae60);
+    color: white;
+    min-width: 200px;
+}
+
+#vote-against {
+    background: linear-gradient(45deg, var(--danger-red), #c0392b);
+    color: white;
+    min-width: 200px;
+}
+
+#vote-confirmation {
+    background: rgba(46, 204, 113, 0.1);
+    border: 1px solid var(--success-green);
+    color: var(--success-green);
+    padding: 1.5rem;
+    text-align: center;
+    font-family: 'Share Tech Mono', monospace;
+    font-weight: bold;
+    animation: fadeIn 0.5s ease;
+}
+
+#results-viewer {
+    text-align: center;
+}
+
+#results-title {
+    font-family: 'Cinzel', serif;
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+    text-shadow: 0 2px 10px rgba(212, 175, 55, 0.5);
+}
+
+#voting-chart {
+    max-width: 400px;
+    margin: 0 auto;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+}
+
+#vote-counts {
+    display: flex;
+    justify-content: space-around;
+    margin: 2rem 0;
+    font-family: 'Share Tech Mono', monospace;
+}
+
+.vote-count-item {
+    text-align: center;
+    padding: 1rem;
+    background: var(--glass-blue);
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    min-width: 120px;
+}
+
+.vote-count-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.vote-count-label {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+#in-favour-count {
+    color: var(--success-green);
+    text-shadow: 0 0 10px rgba(46, 204, 113, 0.5);
+}
+
+#against-count {
+    color: var(--danger-red);
+    text-shadow: 0 0 10px rgba(231, 76, 60, 0.5);
+}
+
+#resolution-status {
+    padding: 1.5rem;
+    margin-top: 2rem;
+    text-align: center;
+    font-weight: bold;
+    font-family: 'Cinzel', serif;
+    font-size: 1.2rem;
+    border-radius: 8px;
+    letter-spacing: 2px;
+}
+
+.resolution-passed {
+    background: rgba(46, 204, 113, 0.1);
+    border: 2px solid var(--success-green);
+    color: var(--success-green);
+}
+
+.resolution-failed {
+    background: rgba(231, 76, 60, 0.1);
+    border: 2px solid var(--danger-red);
+    color: var(--danger-red);
+}
+
+#no-voting-message {
+    text-align: center;
+    padding: 3rem;
+    background: var(--glass-blue);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-family: 'Share Tech Mono', monospace;
+    color: var(--warning-orange);
+}
+
+/* ADMIN PANEL STYLES */
+.glass-panel {
+    background: var(--glass-blue);
+    border: 1px solid var(--border);
+    padding: 3rem;
+    margin: 2rem auto;
+    max-width: 1000px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.glass-panel h2 {
+    color: var(--gold-solid);
+    text-align: center;
+    margin-bottom: 2rem;
+    font-family: 'Cinzel', serif;
+    font-size: 2rem;
+    letter-spacing: 3px;
+}
+
+.glass-panel h3 {
+    color: var(--gold-solid);
+    margin-bottom: 1rem;
+    font-family: 'Cinzel', serif;
+    font-size: 1.3rem;
+    letter-spacing: 2px;
+}
+
+.glass-panel label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--gold-solid);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+#delegates-table {
+    max-height: 400px;
+    overflow-y: auto;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 1rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+}
+
+#delegates-table table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.8rem;
+}
+
+#delegates-table th {
+    color: var(--gold-solid);
+    padding: 0.5rem;
+    text-align: left;
+    border-bottom: 1px solid var(--gold-solid);
+    position: sticky;
+    top: 0;
+    background: rgba(2, 6, 23, 0.9);
+}
+
+#delegates-table td {
+    padding: 0.5rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+}
+
+#voting-status {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: rgba(212, 175, 55, 0.1);
+    border: 1px solid var(--gold-solid);
+    border-radius: 4px;
+    font-family: 'Share Tech Mono', monospace;
+    text-align: center;
+}
+
+/* VIDEO CONTAINER */
+.video-container {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.styled-video {
+    width: 100%;
+    border-radius: 8px;
+    border: 2px solid var(--border);
+}
+
+/* ANIMATIONS */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+@keyframes glow {
+    0%, 100% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); }
+    50% { box-shadow: 0 0 40px rgba(212, 175, 55, 0.7); }
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+    .terminal-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 0 2%;
+    }
+    
+    .login-card {
+        padding: 2rem;
+        margin: 0 1rem;
+    }
+    
+    .letter-frame {
+        padding: 2rem;
+    }
+    
+    .gigantic-title {
+        font-size: clamp(2rem, 8vw, 4rem);
+    }
+    
+    #vote-options {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .gold-action-btn {
+        padding: 1rem 2rem;
+        font-size: 0.9rem;
+    }
+    
+    .glass-panel {
+        margin: 1rem;
+        padding: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .top-right-branding {
+        top: 20px;
+        right: 20px;
+    }
+    
+    .branding-text {
+        font-size: 0.7rem;
+        letter-spacing: 2px;
+    }
+    
+    .mini-logo {
+        width: 35px;
+    }
+    
+    .terminal-nav {
+        padding: 1rem 2%;
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .assets-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .assets-grid .detail-card {
+        min-width: 280px;
+        padding: 2rem;
+    }
+}

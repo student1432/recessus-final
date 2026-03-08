@@ -1,0 +1,24 @@
+{
+  "name": "recessus-voting-system",
+  "version": "1.0.0",
+  "description": "Recessus Concessus 2026 - Advanced Voting System",
+  "main": "index-enhanced.html",
+  "scripts": {
+    "start": "echo 'Static site - no start command needed'",
+    "build": "echo 'Static site - no build needed'",
+    "deploy": "echo 'Ready for deployment to Render'"
+  },
+  "keywords": [
+    "voting-system",
+    "recessus-concessus",
+    "firebase",
+    "static-site"
+  ],
+  "author": "Recessus Concessus Team",
+  "license": "MIT",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

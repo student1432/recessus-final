@@ -1,0 +1,281 @@
+:root {
+    --deep-blue: #020617; 
+    --gold-metallic: linear-gradient(45deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+    --gold-solid: #d4af37;
+    --white: #ffffff;
+}
+
+body {
+    background: linear-gradient(180deg, #020617 0%, #081226 100%);
+    color: var(--white);
+    font-family: 'Gideon Roman', serif;
+    margin: 0;
+    overflow-x: hidden;
+}
+
+/* TOP RIGHT LOGO */
+.top-right-branding {
+    position: absolute;
+    top: 40px;
+    right: 50px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    z-index: 1000;
+}
+
+.branding-text {
+    font-family: 'Cinzel', serif;
+    font-size: 0.8rem;
+    color: var(--gold-solid);
+    letter-spacing: 3px;
+    border-right: 1px solid var(--gold-solid);
+    padding-right: 15px;
+}
+
+.mini-logo { width: 45px; filter: drop-shadow(0 0 10px var(--gold-solid)); }
+
+/* GIGANTIC GOLD TITLE */
+.hero { height: 100vh; display: flex; justify-content: center; align-items: center; text-align: center; }
+
+.gigantic-title {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: clamp(3rem, 12vw, 10rem);
+    background: var(--gold-metallic);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 10px 30px rgba(212, 175, 55, 0.7));
+    margin: 0;
+    line-height: 0.9;
+}
+
+/* DECORATED LETTER BOX */
+.letter-frame {
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    padding: 5rem;
+    position: relative;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+}
+
+.gold-heading {
+    font-family: 'Cinzel', serif;
+    color: var(--gold-solid);
+    letter-spacing: 5px;
+    margin-bottom: 2rem;
+}
+
+.signature {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.5rem;
+    color: var(--gold-solid);
+    margin-top: 3rem;
+}
+
+/* TEAM SIGNATURE */
+.team-cursive {
+    font-family: 'Great Vibes', cursive;
+    font-size: 3.5rem;
+    background: var(--gold-metallic);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* REVEAL LOGIC */
+.reveal { opacity: 0; transition: all 1.2s ease-out; }
+.reveal.active { opacity: 1; transform: translateY(0); }
+
+/* FORCE CENTER ALIGNMENT */
+.centered-content {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.letter-content {
+    text-align: center; /* Makes the letter text centered */
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.gold-heading {
+    text-align: center;
+    width: 100%;
+    display: block;
+}
+
+.signature {
+    text-align: center; /* Centers your sign-off */
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.8rem;
+    color: var(--gold-solid);
+    margin-top: 3rem;
+}
+
+/* Ensure the grid of cards is also centered if you still use them */
+.details-grid {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    text-align: center;
+}
+
+/* GOLD ACTION BUTTONS */
+.gold-action-btn {
+    display: inline-block;
+    padding: 1.2rem 2.5rem;
+    background: var(--gold-gradient);
+    color: var(--deep-blue);
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    text-decoration: none;
+    letter-spacing: 2px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+    transition: 0.3s ease;
+}
+
+.gold-action-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 40px rgba(212, 175, 55, 0.7);
+}
+
+/* LOGIN CARD STYLING */
+.login-card {
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    padding: 4rem;
+    width: 100%;
+    max-width: 450px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid var(--gold-solid);
+    padding: 1rem;
+    color: white;
+    margin-bottom: 2rem;
+    font-family: 'Gideon Roman', serif;
+    text-align: center;
+}
+
+/* TERMINAL SPECIFIC STYLES */
+.terminal-body {
+    background: radial-gradient(circle at top, #061229 0%, #020617 100%);
+    min-height: 100vh;
+}
+
+.terminal-nav {
+    padding: 2rem 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+    background: rgba(2, 6, 23, 0.8);
+}
+
+.gold-label {
+    color: var(--gold-solid);
+    font-family: 'Cinzel', serif;
+    letter-spacing: 2px;
+}
+
+.gigantic-title-small {
+    font-family: 'Cinzel Decorative', serif;
+    font-size: 4rem;
+    background: var(--gold-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 5px 15px rgba(212, 175, 55, 0.5));
+    text-align: center;
+    margin: 3rem 0;
+}
+
+.terminal-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr; /* Video gets more room */
+    gap: 30px;
+    padding: 0 5%;
+    margin-bottom: 5rem;
+}
+
+.video-frame {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: #000;
+    border: 1px solid var(--gold-solid);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 30px rgba(0,0,0,0.8);
+}
+
+.gold-border-btn {
+    background: transparent;
+    border: 1px solid var(--gold-solid);
+    color: var(--gold-solid);
+    padding: 0.5rem 1.5rem;
+    font-family: 'Cinzel', serif;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.gold-border-btn:hover {
+    background: var(--gold-solid);
+    color: var(--deep-blue);
+}
+
+/* ASSETS GRID ALIGNMENT */
+.assets-grid {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap; /* Centers them on mobile */
+    margin-top: 3rem;
+}
+
+/* THE DOSSIER CARD */
+.assets-grid .detail-card {
+    flex: 1;
+    min-width: 350px;
+    max-width: 450px;
+    text-align: center;
+    background: var(--glass-blue);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    padding: 3.5rem;
+    transition: 0.5s ease;
+}
+
+.assets-grid .detail-card:hover {
+    border-color: var(--gold-solid);
+    transform: translateY(-10px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+}
+
+/* THE BUTTONS */
+.gold-border-btn {
+    display: inline-block;
+    margin-top: 1.5rem;
+    padding: 0.8rem 2rem;
+    background: transparent;
+    border: 1px solid var(--gold-solid);
+    color: var(--gold-solid);
+    font-family: 'Cinzel', serif;
+    text-decoration: none;
+    letter-spacing: 2px;
+    transition: 0.3s;
+}
+
+.gold-border-btn:hover {
+    background: var(--gold-solid);
+    color: var(--deep-blue);
+}

@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Command Console | Recessus Concessus 2026 Enhanced</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@700&family=Gideon+Roman&family=Share+Tech+Mono&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style-enhanced.css">
+
+    <style>
+        /* Specific Terminal UI Styles for Parity with Delegate Console */
+        .terminal-id {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.9rem;
+        }
+
+        .enhanced-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .hero-section {
+            text-align: center;
+            padding: 3rem 0;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.05), transparent);
+            border-radius: 15px;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .welcome-text {
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            color: var(--gold-solid);
+            margin-bottom: 1rem;
+            letter-spacing: 3px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .gigantic-title {
+            font-family: 'Cinzel Decorative', cursive;
+            font-size: clamp(4rem, 8vw, 6rem) !important;
+            background: linear-gradient(135deg, var(--gold-solid), #d4af37, var(--gold-solid)) !important;
+            -webkit-background-clip: text !important;
+            background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            margin: 1rem 0 !important;
+            text-shadow: 0 0 30px rgba(212, 175, 55, 0.3) !important;
+            position: relative;
+            z-index: 1;
+        }
+
+        .accent-line {
+            width: 150px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold-solid), transparent);
+            margin: 2rem auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .asset-card {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)) !important;
+            border: 1px solid rgba(212, 175, 55, 0.3) !important;
+            border-radius: 15px !important;
+            padding: 2.5rem !important;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .asset-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold-solid), transparent);
+        }
+
+        .section-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem !important;
+            color: var(--gold-solid) !important;
+            margin-bottom: 2rem !important;
+            letter-spacing: 2px !important;
+            text-align: center;
+            text-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
+        }
+
+        .profile-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .profile-section {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 1.5rem;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .profile-section h3 {
+            color: var(--gold-solid);
+            margin-bottom: 1.5rem;
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem !important;
+            letter-spacing: 1px;
+            text-align: center;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            padding-bottom: 0.8rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            color: var(--gold-solid);
+            font-family: 'Cinzel', serif;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+        }
+
+        .form-input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.05) !important;
+            border: 1px solid var(--gold-solid) !important;
+            padding: 0.8rem !important;
+            color: white !important;
+            border-radius: 5px !important;
+            font-family: 'Gideon Roman', serif !important;
+            transition: all 0.3s ease;
+            text-align: center !important;
+        }
+
+        .status-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .status-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.8rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            border-left: 3px solid var(--accent);
+        }
+
+        .status-label {
+            color: var(--gold-solid);
+            font-weight: bold;
+            font-family: 'Share Tech Mono', monospace;
+        }
+
+        .status-value {
+            color: var(--accent);
+            font-family: 'Share Tech Mono', monospace;
+        }
+
+        .vote-counts {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .vote-count-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .vote-count-number {
+            font-size: 2.2rem !important;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            font-family: 'Share Tech Mono', monospace;
+        }
+
+        .vote-count-label {
+            font-size: 0.8rem !important;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.8;
+            font-family: 'Share Tech Mono', monospace;
+        }
+
+        @media (max-width: 768px) {
+            .profile-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .veto-title {
+            color: #e74c3c;
+            margin: 0 0 1.5rem 0;
+            font-family: 'Cinzel', serif;
+            letter-spacing: 2px;
+            font-size: 1.1rem;
+            text-align: center;
+            border-bottom: 1px solid rgba(231, 76, 60, 0.2);
+            padding-bottom: 0.8rem;
+        }
+    </style>
+</head>
+
+<body class="terminal-body">
+
+    <nav class="terminal-nav">
+        <div class="terminal-id">
+            <span class="gold-label">COMMAND OVERRIDE:</span> ACTIVE //
+            <span style="letter-spacing: 2px;">ADMIN_CONCESSUS_2026</span>
+        </div>
+        <a href="index-enhanced.html" class="gold-border-btn"
+            style="color: #e74c3c; border-color: #e74c3c; text-decoration: none;">LOCK CONSOLE</a>
+    </nav>
+
+    <div class="enhanced-container">
+
+        <!-- Hero Section -->
+        <header class="hero-section">
+            <p class="welcome-text reveal active">STRATEGIC COMMAND CENTER</p>
+            <h1 class="gigantic-title reveal active">ADMIN CONSOLE</h1>
+            <div class="accent-line reveal active"></div>
+        </header>
+
+        <main id="admin-panel" style="display:none;">
+
+            <!-- Voting Control Panel -->
+            <div class="asset-card reveal active" style="margin-bottom: 3rem;">
+                <h2 class="section-title">VOTING CONTROL CENTER</h2>
+
+                <div class="profile-grid">
+                    <div class="profile-section">
+                        <h3>SESSION CONFIGURATION</h3>
+                        <div class="form-group">
+                            <label class="form-label">RESOLUTION TITLE</label>
+                            <input type="text" id="resolution-title" placeholder="Enter resolution title"
+                                class="form-input">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">TIME LIMIT (MINUTES)</label>
+                            <input type="number" id="voting-time-limit" value="10" min="1" class="form-input">
+                        </div>
+                        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                            <button id="start-vote-btn" class="gold-action-btn" style="flex: 1;">INITIATE VOTE</button>
+                            <button id="end-vote-btn" class="gold-border-btn" style="flex: 1;">END VOTING</button>
+                        </div>
+                        <button id="publish-results-btn" class="gold-border-btn"
+                            style="width: 100%; margin-top: 1rem;">PUBLISH FINAL RESULTS</button>
+                    </div>
+
+                    <div class="profile-section">
+                        <h3>VOTING STATUS & OVERRIDE</h3>
+
+                        <div id="voting-status" class="status-grid" style="display: none; margin-bottom: 1.5rem;">
+                            <div class="status-item">
+                                <span class="status-label">STATUS:</span>
+                                <span class="status-value" id="current-status">INACTIVE</span>
+                            </div>
+                        </div>
+
+                        <!-- Real-time Results Preview -->
+                        <div id="results-preview" style="display: none;">
+                            <div class="vote-counts" style="margin-top: 0; gap: 1rem;">
+                                <div class="vote-count-item" style="padding: 1rem;">
+                                    <div class="vote-count-number" style="color: #2ecc71; font-size: 1.8rem;"
+                                        id="preview-in-favour">0</div>
+                                    <div class="vote-count-label">IN FAVOUR</div>
+                                </div>
+                                <div class="vote-count-item" style="padding: 1rem;">
+                                    <div class="vote-count-number" style="color: #e74c3c; font-size: 1.8rem;"
+                                        id="preview-against">0</div>
+                                    <div class="vote-count-label">AGAINST</div>
+                                </div>
+                            </div>
+                            <div
+                                style="margin-top: 1rem; text-align: center; padding: 0.8rem; background: rgba(255,255,255,0.05); border-radius: 5px; font-family: 'Share Tech Mono', monospace;">
+                                <span id="preview-status" class="gold-label" style="font-size: 0.8rem;">AWAITING
+                                    VOTES...</span>
+                            </div>
+                        </div>
+
+                        <!-- Veto Power Section -->
+                        <div id="veto-section"
+                            style="margin-top: 1.5rem; padding: 1.5rem; background: rgba(231,76,60,0.05); border: 1px solid #e74c3c; border-radius: 10px; display: none;">
+                            <h4 class="veto-title">⚠️ ADMIN VETO POWER</h4>
+                            <div style="display: flex; gap: 1rem;">
+                                <button id="veto-pass-btn" class="gold-action-btn"
+                                    style="background: #2ecc71; border-color: #2ecc71; padding: 0.8rem 1rem; font-size: 0.8rem; flex: 1;">FORCE
+                                    PASS</button>
+                                <button id="veto-fail-btn" class="gold-action-btn"
+                                    style="background: #e74c3c; border-color: #e74c3c; padding: 0.8rem 1rem; font-size: 0.8rem; flex: 1;">FORCE
+                                    FAIL</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p id="status-msg"
+                    style="margin-top: 20px; text-align: center; color: var(--accent); font-family: 'Share Tech Mono', monospace; min-height: 1.2em;">
+                </p>
+            </div>
+
+            <!-- Delegate Management -->
+            <div class="asset-card reveal active" style="margin-bottom: 3rem;">
+                <h2 class="section-title">DELEGATE OVERVIEW</h2>
+
+                <div style="display: flex; gap: 1rem; margin-bottom: 2rem; justify-content: center;">
+                    <button id="refresh-delegates-btn" class="gold-border-btn">REFRESH DELEGATE STATUS</button>
+                    <button id="export-delegates-btn" class="gold-border-btn">EXPORT MISSION DATA</button>
+                </div>
+
+                <div id="delegates-table"
+                    style="background: rgba(0,0,0,0.3); border-radius: 10px; overflow: hidden; border: 1px solid var(--border);">
+                    <div
+                        style="padding: 3rem; text-align: center; opacity: 0.6; font-family: 'Share Tech Mono', monospace;">
+                        [ INITIALIZING DELEGATE DATABASE... ]
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-grid">
+                <!-- Static Asset Deployment -->
+                <div class="asset-card reveal active">
+                    <h2 class="section-title">ASSET DEPLOYMENT</h2>
+
+                    <div class="profile-section" style="margin-bottom: 1.5rem;">
+                        <h3>CRISIS BRIEFING</h3>
+                        <p
+                            style="font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; line-height: 1.6; opacity: 0.8;">
+                            1. Place <strong>Crisis_Briefing.mp4</strong> in /assets/<br>
+                            2. <code>git commit -m "Update crisis briefing"</code><br>
+                            3. <code>git push</code> to trigger auto-redeploy
+                        </p>
+                    </div>
+
+                    <div class="profile-section">
+                        <h3>STUDY GUIDE</h3>
+                        <p
+                            style="font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; line-height: 1.6; opacity: 0.8;">
+                            1. Replace <strong>Study Guide.pdf</strong> in /assets/<br>
+                            2. <code>git commit -m "Update study guide"</code><br>
+                            3. <code>git push</code> to trigger auto-redeploy
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Event Settings -->
+                <div class="asset-card reveal active">
+                    <h2 class="section-title">EVENT CONFIGURATION</h2>
+
+                    <div class="form-group">
+                        <label class="form-label">EVENT START DATE/TIME</label>
+                        <input type="datetime-local" id="event-start-time" class="form-input">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">EARLY LOGIN MESSAGE</label>
+                        <input type="text" id="early-login-msg" placeholder="Event has not started yet"
+                            class="form-input">
+                    </div>
+
+                    <button id="save-settings-btn" class="gold-action-btn" style="width: 100%; margin-top: 1rem;">SAVE
+                        COMMAND SETTINGS</button>
+                </div>
+            </div>
+
+            <footer class="footer reveal active" style="margin-top: 5rem; text-align: center;">
+                <p>Strategic Command Interface,</p>
+                <span class="team-cursive">Team Recessus Concessus</span>
+            </footer>
+
+        </main>
+    </div>
+
+    <script src="js/scroll.js"></script>
+    <script type="module" src="js/admin-enhanced.js"></script>
+</body>
+
+</html>

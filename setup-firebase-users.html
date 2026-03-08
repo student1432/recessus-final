@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase Setup - Recessus Consensus</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cinzel:wght@700&family=Share+Tech+Mono&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/style-enhanced.css">
+    <style>
+        body {
+            font-family: 'Share Tech Mono', monospace;
+            background: radial-gradient(circle at top, #061229 0%, #020617 100%);
+            color: #ffffff;
+            margin: 0;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 2rem auto;
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid var(--gold-solid);
+            padding: 3rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            font-family: 'Cinzel Decorative', serif;
+            color: var(--gold-solid);
+            text-align: center;
+            margin-bottom: 2rem;
+            letter-spacing: 3px;
+            background: var(--gold-metallic);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .setup-btn {
+            background: var(--gold-metallic);
+            color: #020617;
+            border: none;
+            padding: 1rem 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 0.5rem;
+            border-radius: 4px;
+            font-family: 'Cinzel', serif;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+            font-size: 0.8rem;
+        }
+
+        .setup-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
+        }
+
+        .status {
+            margin: 1rem 0;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+
+        .success {
+            color: #2ecc71;
+            border-left: 3px solid #2ecc71;
+        }
+
+        .error {
+            color: #e74c3c;
+            border-left: 3px solid #e74c3c;
+        }
+
+        .info {
+            color: #00d2ff;
+            border-left: 3px solid #00d2ff;
+        }
+
+        .status.warning {
+            background: rgba(231, 76, 60, 0.1);
+            border: 1px solid #e74c3c;
+            color: #ff9f9f;
+        }
+
+        pre {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow-x: auto;
+            font-size: 0.85rem;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        h2 {
+            font-family: 'Cinzel', serif;
+            color: var(--gold-solid);
+            margin-top: 3rem;
+            font-size: 1.2rem;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            padding-bottom: 0.5rem;
+        }
+
+        code {
+            color: var(--accent);
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🔧 Firebase User Setup</h1>
+        <p>This script will create test delegates and configure event settings for Recessus Consensus.</p>
+
+        <div class="status warning">
+            <strong>🔑 Important:</strong> Usernames are CASE-SENSITIVE and allocation must match exactly!
+            Use exact usernames: <code>clinton_t</code>, <code>modi_n</code>, etc.<br>
+            <strong>Example:</strong> <code>clinton_t</code> must login with <strong>United States</strong> allocation
+            only.<br>
+            <strong>Setup creates 5 delegates:</strong> clinton_t, modi_n, xi_j, sunak_r, putin_v
+        </div>
+
+        <button class="setup-btn" onclick="setupFirebase()">🚀 Setup Firebase Test Data</button>
+        <button class="setup-btn" onclick="clearFirebase()">🗑️ Clear All Test Data</button>
+        <button class="setup-btn" onclick="checkSetup()">📋 Check Current Setup</button>
+        <button class="setup-btn" onclick="quickLogin()"
+            style="background: linear-gradient(45deg, #3498db, #2980b9);">🔓 Quick Login Test</button>
+        <button class="setup-btn" onclick="restoreOriginalData()"
+            style="background: linear-gradient(45deg, #27ae60, #229954);">🔄 Restore Original Data</button>
+        <button class="setup-btn" onclick="backupCurrentData()"
+            style="background: linear-gradient(45deg, #f39c12, #e67e22);">💾 Backup Current Data</button>
+
+        <div id="status-output"></div>
+
+        <h2>Test Users That Will Be Created</h2>
+        <pre>
+🇺🇸 USA Delegate:
+  Username: clinton_t
+  Password: password123
+  Allocation: United States
+  Participation: Present and Voting
+  Voting Rights: YES
+
+🇮🇳 India Delegate:
+  Username: modi_n  
+  Password: password123
+  Allocation: India
+  Participation: Present and Voting
+  Voting Rights: YES
+
+🇨🇳 China Delegate:
+  Username: xi_j
+  Password: password123
+  Allocation: People's Republic of China
+  Participation: Present (Observer)
+  Voting Rights: NO
+
+🇬🇧 UK Delegate:
+  Username: sunak_r
+  Password: password123
+  Allocation: United Kingdom
+  Participation: Present and Voting
+  Voting Rights: YES
+
+🇷🇺 Russia Delegate:
+  Username: putin_v
+  Password: password123
+  Allocation: Russian Federation
+  Participation: Present (Observer)
+  Voting Rights: NO
+
+💡 SIMPLIFIED: Single participation field!
+   - "Present and Voting" = Can vote
+   - "Present (Observer)" = Present but cannot vote
+   - No absent option (absent users don't login)
+   - Can be changed later in delegate profile
+   - Allocation is FIXED and validated during login
+
+Admin Access:
+  URL: admin-enhanced.html
+  Password: Crescendo2026
+        </pre>
+
+        <h2>Event Settings</h2>
+        <pre>
+Event Start Time: Current time (allows immediate login)
+Early Login Message: "Event has not started yet. Please check back later."
+        </pre>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        // Firebase configuration (same as your existing)
+        const firebaseConfig = {
+            apiKey: "AIzaSyDq5pz5fDVXGx_DZ44q887udy_Q1c35etA",
+            authDomain: "recessus-concessus.firebaseapp.com",
+            projectId: "recessus-concessus",
+            storageBucket: "recessus-concessus.firebasestorage.app",
+            messagingSenderId: "332810563797",
+            appId: "1:332810563797:web:fb87e23dda06fcf989725c"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Make functions available globally
+        window.setupFirebase = setupFirebase;
+        window.clearFirebase = clearFirebase;
+        window.checkSetup = checkFirebase;
+        window.quickLogin = quickLogin;
+        window.restoreOriginalData = restoreOriginalData;
+        window.backupCurrentData = backupCurrentData;
+
+        const statusOutput = document.getElementById('status-output');
+
+        function log(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const className = type === 'error' ? 'error' : type === 'success' ? 'success' : 'info';
+            statusOutput.innerHTML += `<div class="status ${className}">[${timestamp}] ${message}</div>`;
+            statusOutput.scrollTop = statusOutput.scrollHeight;
+        }
+
+        async function setupFirebase() {
+            log('🚀 Starting Firebase setup...', 'info');
+
+            try {
+                // Create test delegates with specific allocations
+                const delegates = [
+                    {
+                        username: 'clinton_t',
+                        passcode: 'password123',
+                        allocation: 'United States',
+                        participation: 'voting',
+                        is_voting: true,
+                        hasWatchedVideo: false
+                    },
+                    {
+                        username: 'modi_n',
+                        passcode: 'password123',
+                        allocation: 'India',
+                        participation: 'voting',
+                        is_voting: true,
+                        hasWatchedVideo: false
+                    },
+                    {
+                        username: 'xi_j',
+                        passcode: 'password123',
+                        allocation: 'People\'s Republic of China',
+                        participation: 'present',
+                        is_voting: false,
+                        hasWatchedVideo: false
+                    },
+                    {
+                        username: 'sunak_r',
+                        passcode: 'password123',
+                        allocation: 'United Kingdom',
+                        participation: 'voting',
+                        is_voting: true,
+                        hasWatchedVideo: false
+                    },
+                    {
+                        username: 'putin_v',
+                        passcode: 'password123',
+                        allocation: 'Russian Federation',
+                        participation: 'present',
+                        is_voting: false,
+                        hasWatchedVideo: false
+                    }
+                ];
+
+                // Create each delegate
+                for (const delegate of delegates) {
+                    await setDoc(doc(db, 'delegates', delegate.username), delegate);
+                    log(`✅ Created delegate: ${delegate.username}`, 'success');
+                    log(`   🔑 Username: ${delegate.username} (case-sensitive)`, 'info');
+                    log(`   🔐 Password: ${delegate.passcode}`, 'info');
+                }
+
+                // Add a note about delegate control
+                log('💡 Delegates now choose their attendance during login!', 'info');
+                log('🔑 Created delegates with fixed allocations:', 'info');
+                log('   clinton_t (USA), modi_n (India), xi_j (China)', 'info');
+                log('   sunak_r (UK), putin_v (Russia)', 'info');
+                log('⚠️ Allocation must match exactly during login!', 'info');
+
+                // Set up event configuration
+                await setDoc(doc(db, 'settings', 'eventConfig'), {
+                    eventStartTime: new Date(), // Current time allows immediate login
+                    earlyLoginMessage: 'Event has not started yet. Please check back later.',
+                    lastUpdated: new Date()
+                });
+                log('✅ Event configuration set', 'success');
+
+                // Initialize voting collection (empty state)
+                await setDoc(doc(db, 'voting', 'activeVote'), {
+                    status: 'inactive',
+                    results: { in_favour: 0, against: 0, passed: false }
+                });
+                log('✅ Voting system initialized', 'success');
+
+                log('🎉 Firebase setup completed successfully!', 'success');
+                log('You can now login with the test credentials shown above.', 'info');
+
+            } catch (error) {
+                log(`❌ Setup failed: ${error.message}`, 'error');
+                console.error('Firebase setup error:', error);
+            }
+        }
+
+        async function clearFirebase() {
+            if (!confirm('⚠️ This will delete ALL test data. Are you sure?')) {
+                return;
+            }
+
+            log('🗑️ Clearing Firebase data...', 'info');
+
+            try {
+                // Clear delegates
+                const delegatesSnapshot = await getDocs(collection(db, 'delegates'));
+                for (const doc of delegatesSnapshot.docs) {
+                    await deleteDoc(doc.ref);
+                }
+                log(`🗑️ Deleted ${delegatesSnapshot.size} delegates`, 'info');
+
+                // Clear voting
+                await deleteDoc(doc(db, 'voting', 'activeVote'));
+                log('🗑️ Cleared voting data', 'info');
+
+                // Clear settings
+                await deleteDoc(doc(db, 'settings', 'eventConfig'));
+                log('🗑️ Cleared event settings', 'info');
+
+                log('✅ All test data cleared', 'success');
+
+            } catch (error) {
+                log(`❌ Clear failed: ${error.message}`, 'error');
+                console.error('Firebase clear error:', error);
+            }
+        }
+
+        async function quickLogin() {
+            log('🔓 Setting up quick login test...', 'info');
+
+            try {
+                // First ensure test data exists
+                await setupFirebase();
+
+                // Wait a moment for data to be ready
+                await new Promise(resolve => setTimeout(resolve, 1000));
+
+                // Auto-fill login form and redirect
+                const testUser = 'clinton_t';
+                const testPassword = 'password123';
+                const testAllocation = 'United States';
+                const testParticipation = 'voting';
+
+                localStorage.setItem('quick_test_user', testUser);
+                localStorage.setItem('quick_test_pass', testPassword);
+                localStorage.setItem('quick_test_allocation', testAllocation);
+                localStorage.setItem('quick_test_participation', testParticipation);
+
+                log('🚀 Quick login credentials prepared!', 'success');
+                log(`👤 User: ${testUser}`, 'info');
+                log(`🔐 Password: ${testPassword}`, 'info');
+                log(`🌍 Allocation: United States`, 'info');
+                log(`🗳️ Participation: Present and Voting`, 'info');
+                log('', 'info');
+                log('🎯 Redirecting to login page in 2 seconds...', 'info');
+
+                // Redirect to enhanced login page
+                setTimeout(() => {
+                    window.open('index-enhanced.html', '_blank');
+                }, 2000);
+
+            } catch (error) {
+                log(`❌ Quick login setup failed: ${error.message}`, 'error');
+                console.error('Quick login error:', error);
+            }
+        }
+
+        async function restoreOriginalData() {
+            log('🔄 Attempting to restore original delegate data...', 'info');
+
+            try {
+                // Create original test delegates with specific allocations
+                const originalDelegates = [
+                    {
+                        username: 'clinton_t',
+                        passcode: 'password123',
+                        allocation: 'United States',
+                        attendance: 'present_and_voting',
+                        is_voting: true,
+                        hasWatchedVideo: false
+                    },
+                    {
+                        username: 'modi_n',
+                        passcode: 'password123',
+                        allocation: 'India',
+                        attendance: 'present_and_voting',
+                        is_voting: true,
+                        hasWatchedVideo: false
+                    },
+                    {
+                        username: 'xi_j',
+                        passcode: 'password123',
+                        allocation: 'People\'s Republic of China',
+                        attendance: 'present',
+                        is_voting: false,
+                        hasWatchedVideo: false
+                    },
+                    {
+                        username: 'sunak_r',
+                        passcode: 'password123',
+                        allocation: 'United Kingdom',
+                        attendance: 'present_and_voting',
+                        is_voting: true,
+                        hasWatchedVideo: false
+                    },
+                    {
+                        username: 'putin_v',
+                        passcode: 'password123',
+                        allocation: 'Russian Federation',
+                        attendance: 'present',
+                        is_voting: false,
+                        hasWatchedVideo: false
+                    },
+                    {
+                        username: 'macron_e',
+                        passcode: 'password123',
+                        allocation: 'France',
+                        attendance: 'present_and_voting',
+                        is_voting: true,
+                        hasWatchedVideo: false
+                    },
+                    {
+                        username: 'scholz_o',
+                        passcode: 'password123',
+                        allocation: 'Germany',
+                        attendance: 'present',
+                        is_voting: false,
+                        hasWatchedVideo: false
+                    },
+                    {
+                        username: 'kishida_f',
+                        passcode: 'password123',
+                        allocation: 'Japan',
+                        attendance: 'present_and_voting',
+                        is_voting: true,
+                        hasWatchedVideo: false
+                    },
+                    {
+                        username: 'yoon_s',
+                        passcode: 'password123',
+                        allocation: 'South Korea',
+                        attendance: 'present',
+                        is_voting: false,
+                        hasWatchedVideo: false
+                    },
+                    {
+                        username: 'von_der_leyen_u',
+                        passcode: 'password123',
+                        allocation: 'European Union',
+                        attendance: 'present_and_voting',
+                        is_voting: true,
+                        hasWatchedVideo: false
+                    }
+                ];
+
+                // Create each delegate
+                for (const delegate of originalDelegates) {
+                    await setDoc(doc(db, 'delegates', delegate.username), delegate);
+                    log(`✅ Restored delegate: ${delegate.username}`, 'success');
+                }
+
+                // Set up event configuration
+                await setDoc(doc(db, 'settings', 'eventConfig'), {
+                    eventStartTime: new Date(),
+                    earlyLoginMessage: 'Event has not started yet. Please check back later.',
+                    lastUpdated: new Date()
+                });
+                log('✅ Event configuration restored', 'success');
+
+                // Initialize voting collection
+                await setDoc(doc(db, 'voting', 'activeVote'), {
+                    status: 'inactive',
+                    results: { in_favour: 0, against: 0, passed: false }
+                });
+                log('✅ Voting system restored', 'success');
+
+                log('🎉 Original delegate data restored successfully!', 'success');
+                log('📝 All delegates use password: password123', 'info');
+                log('🔑 You can now login with specific usernames:', 'info');
+                log('   clinton_t (USA), modi_n (India), xi_j (China)', 'info');
+                log('   sunak_r (UK), putin_v (Russia), macron_e (France)', 'info');
+                log('   scholz_o (Germany), kishida_f (Japan)', 'info');
+                log('   yoon_s (South Korea), von_der_leyen_u (EU)', 'info');
+                log('⚠️ Allocation must match exactly during login!', 'info');
+
+            } catch (error) {
+                log(`❌ Restore failed: ${error.message}`, 'error');
+                console.error('Firebase restore error:', error);
+            }
+        }
+
+        async function backupCurrentData() {
+            log('💾 Creating backup of current data...', 'info');
+
+            try {
+                const delegatesSnapshot = await getDocs(collection(db, 'delegates'));
+                const backupData = {
+                    delegates: [],
+                    timestamp: new Date().toISOString(),
+                    count: delegatesSnapshot.size
+                };
+
+                delegatesSnapshot.forEach(doc => {
+                    backupData.delegates.push({
+                        id: doc.id,
+                        ...doc.data()
+                    });
+                });
+
+                // Store backup in localStorage
+                localStorage.setItem('firebase_backup', JSON.stringify(backupData));
+
+                log(`✅ Backup created: ${backupData.count} delegates`, 'success');
+                log('💾 Backup stored in browser localStorage', 'info');
+                log('📋 You can restore this data later if needed', 'info');
+
+                // Also download as JSON file
+                const dataStr = JSON.stringify(backupData, null, 2);
+                const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
+
+                const exportFileDefaultName = `firebase_backup_${new Date().toISOString().split('T')[0]}.json`;
+
+                const linkElement = document.createElement('a');
+                linkElement.setAttribute('href', dataUri);
+                linkElement.setAttribute('download', exportFileDefaultName);
+                linkElement.click();
+
+                log('📁 Backup file downloaded automatically', 'success');
+
+            } catch (error) {
+                log(`❌ Backup failed: ${error.message}`, 'error');
+                console.error('Firebase backup error:', error);
+            }
+        }
+
+        async function checkFirebase() {
+            log('📋 Checking current Firebase setup...', 'info');
+
+            try {
+                // Check delegates
+                const delegatesSnapshot = await getDocs(collection(db, 'delegates'));
+                log(`👥 Found ${delegatesSnapshot.size} delegates:`, 'info');
+
+                delegatesSnapshot.forEach(doc => {
+                    const data = doc.data();
+                    log(`  - ${doc.id}: ${data.allocation} (${data.attendance})`, 'info');
+                });
+
+                // Check event settings
+                const eventConfigDoc = await getDoc(doc(db, 'settings', 'eventConfig'));
+                if (eventConfigDoc.exists) {
+                    const config = eventConfigDoc.data();
+                    log('⏰ Event settings found:', 'info');
+                    log(`  - Start time: ${config.eventStartTime?.toDate()}`, 'info');
+                    log(`  - Early message: ${config.earlyLoginMessage}`, 'info');
+                } else {
+                    log('⚠️ No event settings found', 'error');
+                }
+
+                // Check voting
+                const votingDoc = await getDoc(doc(db, 'voting', 'activeVote'));
+                if (votingDoc.exists) {
+                    log('🗳️ Voting system initialized', 'info');
+                } else {
+                    log('⚠️ No voting system found', 'error');
+                }
+
+            } catch (error) {
+                log(`❌ Check failed: ${error.message}`, 'error');
+                console.error('Firebase check error:', error);
+            }
+        }
+
+        // Auto-check setup on page load
+        window.addEventListener('load', () => {
+            log('🔗 Firebase connection established', 'success');
+            log('Click "Setup Firebase Test Data" to create test users', 'info');
+        });
+    </script>
+
+    <!-- Import Firebase functions -->
+    <script type="module">
+        import { doc, setDoc, getDoc, getDocs, collection, deleteDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        // Make functions available globally
+        window.doc = doc;
+        window.setDoc = setDoc;
+        window.getDoc = getDoc;
+        window.getDocs = getDocs;
+        window.collection = collection;
+        window.deleteDoc = deleteDoc;
+    </script>
+</body>
+
+</html>

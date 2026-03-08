@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delegate Terminal | Recessus Concessus 2026 Enhanced</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@700&family=Gideon+Roman&display=swap"
+        rel="stylesheet">
+
+    <!-- Chart.js for voting visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <style>
+        /* Enhanced UI Styles */
+        .terminal-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.7));
+            border-bottom: 2px solid var(--gold-solid);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .terminal-id {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.9rem;
+        }
+
+        .gold-label {
+            color: var(--gold-solid);
+            letter-spacing: 1px;
+        }
+
+        .enhanced-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .hero-section {
+            text-align: center;
+            padding: 3rem 0;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.05), transparent);
+            border-radius: 15px;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .welcome-text {
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            color: var(--gold-solid);
+            margin-bottom: 1rem;
+            letter-spacing: 3px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .gigantic-title {
+            font-family: 'Cinzel Decorative', cursive;
+            font-size: clamp(4rem, 8vw, 6rem);
+            background: linear-gradient(135deg, var(--gold-solid), #d4af37, var(--gold-solid));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 1rem 0;
+            text-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .accent-line {
+            width: 150px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold-solid), transparent);
+            margin: 2rem auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .voting-chamber {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.6));
+            border: 2px solid var(--gold-solid);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .voting-chamber::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--gold-solid), transparent, var(--gold-solid));
+            border-radius: 20px;
+            z-index: -1;
+            opacity: 0.5;
+            animation: borderGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes borderGlow {
+
+            0%,
+            100% {
+                opacity: 0.5;
+            }
+
+            50% {
+                opacity: 0.8;
+            }
+        }
+
+        .voting-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            color: var(--gold-solid);
+            text-align: center;
+            margin-bottom: 2rem;
+            letter-spacing: 2px;
+        }
+
+        .vote-buttons-container {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            margin: 3rem 0;
+            flex-wrap: wrap;
+        }
+
+        .vote-btn {
+            padding: 1.5rem 3rem;
+            font-family: 'Gideon Roman', serif;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border: 2px solid;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vote-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .vote-btn:hover::before {
+            left: 100%;
+        }
+
+        .vote-favour {
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            border-color: #2ecc71;
+            color: white;
+        }
+
+        .vote-favour:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(46, 204, 113, 0.4);
+        }
+
+        .vote-against {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            border-color: #e74c3c;
+            color: white;
+        }
+
+        .vote-against:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(231, 76, 60, 0.4);
+        }
+
+        .vote-confirmation {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.15), rgba(212, 175, 55, 0.05));
+            border: 1px solid var(--gold-solid);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            text-align: center;
+            font-family: 'Share Tech Mono', monospace;
+            color: var(--gold-solid);
+        }
+
+        .results-container {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .chart-container {
+            max-width: 400px;
+            margin: 0 auto 2rem;
+            position: relative;
+        }
+
+        .vote-counts {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .vote-count-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .vote-count-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            font-family: 'Share Tech Mono', monospace;
+        }
+
+        .vote-count-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.8;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .asset-card {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5));
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 15px;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .asset-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold-solid);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .asset-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold-solid), transparent);
+        }
+
+        .section-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            color: var(--gold-solid);
+            margin-bottom: 1.5rem;
+            letter-spacing: 2px;
+            text-align: center;
+        }
+
+        .profile-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .profile-section {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 1.5rem;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .profile-section h3 {
+            color: var(--gold-solid);
+            margin-bottom: 1.5rem;
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            color: var(--gold-solid);
+            font-family: 'Cinzel', serif;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+        }
+
+        .form-input {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--gold-solid);
+            padding: 0.8rem;
+            color: white;
+            border-radius: 5px;
+            font-family: 'Gideon Roman', serif;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+        }
+
+        .form-select {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--gold-solid);
+            padding: 0.8rem;
+            color: white;
+            border-radius: 5px;
+            font-family: 'Gideon Roman', serif;
+            text-align: center;
+        }
+
+        .status-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .status-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.8rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            border-left: 3px solid var(--accent);
+        }
+
+        .status-label {
+            color: var(--gold-solid);
+            font-weight: bold;
+        }
+
+        .status-value {
+            color: var(--accent);
+            font-family: 'Share Tech Mono', monospace;
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .resource-card {
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4));
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold-solid);
+        }
+
+        .resource-card h3 {
+            color: var(--gold-solid);
+            margin-bottom: 1rem;
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+        }
+
+        .resource-card p {
+            margin-bottom: 1.5rem;
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        .video-container {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .styled-video {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .vote-buttons-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .vote-counts {
+                grid-template-columns: 1fr;
+            }
+
+            .resources-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body class="terminal-body">
+
+    <nav class="terminal-nav">
+        <div class="terminal-id">
+            <span class="gold-label">UPLINK STATUS:</span> ACTIVE //
+            <span id="user-display" style="letter-spacing: 2px;">SECURE_TERMINAL</span>
+            <span style="margin-left: 1rem; opacity: 0.7;">
+                <span id="allocation-display" class="gold-label"></span>
+                <span id="attendance-display" style="margin-left: 0.5rem;"></span>
+            </span>
+        </div>
+        <button id="logout-btn" class="gold-border-btn" onclick="logoutUser()">TERMINATE SESSION</button>
+    </nav>
+
+    <div class="enhanced-container">
+
+        <!-- Hero Section -->
+        <header class="hero-section">
+            <p class="welcome-text reveal active">MISSION CONTROL CENTER</p>
+            <h1 class="gigantic-title reveal active">DELEGATE PORTAL</h1>
+            <div class="accent-line reveal active"></div>
+        </header>
+
+        <!-- Voting Section -->
+        <div id="voting-section" class="voting-chamber reveal active" style="display: none;">
+            <h2 class="voting-title">VOTING CHAMBER</h2>
+
+            <!-- Voting Interface for Voting Delegates -->
+            <div id="voting-interface" style="display: none;">
+                <div id="resolution-title"
+                    style="font-size: 1.4rem; margin-bottom: 2rem; color: var(--gold-solid); text-align: center; font-family: 'Cinzel', serif;">
+                </div>
+
+                <div class="vote-buttons-container">
+                    <button id="vote-in-favour" class="vote-btn vote-favour">VOTE IN FAVOUR</button>
+                    <button id="vote-against" class="vote-btn vote-against">VOTE AGAINST</button>
+                </div>
+
+                <div id="vote-confirmation" class="vote-confirmation" style="display: none;">
+                    <p>YOUR VOTE HAS BEEN RECORDED. CHANGES ARE NOT PERMITTED.</p>
+                </div>
+            </div>
+
+            <!-- Results Viewing for Non-Voting Delegates -->
+            <div id="results-viewer" style="display: none;">
+                <div id="results-title"
+                    style="font-size: 1.4rem; margin-bottom: 2rem; color: var(--gold-solid); text-align: center; font-family: 'Cinzel', serif;">
+                </div>
+
+                <div class="results-container">
+                    <div class="chart-container">
+                        <canvas id="voting-chart"></canvas>
+                    </div>
+
+                    <div class="vote-counts">
+                        <div class="vote-count-item">
+                            <div class="vote-count-number" style="color: #2ecc71;" id="in-favour-count">0</div>
+                            <div class="vote-count-label">IN FAVOUR</div>
+                        </div>
+                        <div class="vote-count-item">
+                            <div class="vote-count-number" style="color: #e74c3c;" id="against-count">0</div>
+                            <div class="vote-count-label">AGAINST</div>
+                        </div>
+                    </div>
+
+                    <div id="resolution-status"
+                        style="padding: 1.5rem; margin-top: 2rem; text-align: center; font-weight: bold; font-family: 'Cinzel', serif; background: rgba(0,0,0,0.3); border-radius: 10px;">
+                    </div>
+                </div>
+            </div>
+
+            <div id="no-voting-message" style="display: none; text-align: center; padding: 3rem;">
+                <p style="color: #ff4b2b; font-size: 1.2rem; font-family: 'Cinzel', serif;">NO ACTIVE VOTING SESSION</p>
+            </div>
+        </div>
+
+        <!-- Main Content Grid -->
+        <div class="content-grid">
+
+            <!-- Mission Assets -->
+            <div class="asset-card reveal active">
+                <h2 class="section-title">MISSION ASSETS</h2>
+                <div class="assets-list">
+                    <p style="margin-bottom: 1.5rem; line-height: 1.6;">Access definitive briefing for the 4th edition
+                        of Recessus Consensus. This document contains essential protocols and procedures.</p>
+                    <a href="assets/Crescendo 2026 Recessus Consensus Study Guide.pdf" target="_blank"
+                        class="gold-action-btn"
+                        style="padding: 1rem 2rem; font-size: 0.9rem; display: inline-block; text-align: center;">
+                        DOWNLOAD STUDY GUIDE
+                    </a>
+                </div>
+            </div>
+
+            <!-- Crisis Briefing -->
+            <div class="asset-card reveal active">
+                <h2 class="section-title">CRISIS BRIEFING</h2>
+                <div id="video-wrapper" class="video-container"
+                    style="text-align: center; padding: 3rem; background: rgba(0,0,0,0.3); border-radius: 10px;">
+                    <p
+                        style="color: var(--gold-solid); font-family: 'Cinzel', serif; font-size: 1.2rem; margin-bottom: 1rem;">
+                        📹 Crisis Briefing Video
+                    </p>
+                    <p style="color: white; line-height: 1.6;">
+                        Crisis briefing materials will be available here during the active session.
+                        Please check back for video updates and critical intelligence reports.
+                    </p>
+                    <div style="margin-top: 2rem;">
+                        <button class="gold-border-btn"
+                            onclick="alert('Crisis briefing will be available during the active session.')">
+                            REQUEST ACCESS
+                        </button>
+                    </div>
+                </div>
+                <p
+                    style="font-size: 0.8rem; margin-top: 1.5rem; opacity: 0.6; text-align: center; font-family: 'Share Tech Mono', monospace;">
+                    ENCRYPTED TRANSMISSION // 2026 GLOBAL ORDER
+                </p>
+            </div>
+
+        </div>
+
+        <!-- Profile Management Section -->
+        <div class="asset-card reveal active" style="margin-bottom: 3rem;">
+            <h2 class="section-title">DELEGATE PROFILE</h2>
+
+            <div class="profile-grid">
+                <div class="profile-section">
+                    <h3>ACCOUNT SETTINGS</h3>
+
+                    <div class="form-group">
+                        <label class="form-label">CHANGE PASSWORD</label>
+                        <input type="password" id="current-password" placeholder="Current Password" class="form-input">
+                        <input type="password" id="new-password" placeholder="New Password" class="form-input"
+                            style="margin-top: 0.5rem;">
+                        <button id="change-password-btn" class="gold-border-btn"
+                            style="margin-top: 1rem; width: 100%;">UPDATE PASSWORD</button>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">VOTING RIGHTS</label>
+                        <select id="voting-rights-toggle" class="form-select">
+                            <option value="true">ENABLE VOTING</option>
+                            <option value="false">DISABLE VOTING</option>
+                        </select>
+                        <button id="update-voting-rights-btn" class="gold-border-btn"
+                            style="margin-top: 1rem; width: 100%;">UPDATE RIGHTS</button>
+                    </div>
+                </div>
+
+                <div class="profile-section">
+                    <h3>CURRENT STATUS</h3>
+                    <div class="status-grid">
+                        <div class="status-item">
+                            <span class="status-label">Delegate:</span>
+                            <span class="status-value" id="profile-username"></span>
+                        </div>
+                        <div class="status-item">
+                            <span class="status-label">Allocation:</span>
+                            <span class="status-value" id="profile-allocation"></span>
+                        </div>
+                        <div class="status-item">
+                            <span class="status-label">Participation:</span>
+                            <span class="status-value" id="profile-participation"></span>
+                        </div>
+                        <div class="status-item">
+                            <span class="status-label">Voting Rights:</span>
+                            <span class="status-value" id="profile-voting-status"></span>
+                        </div>
+                        <div class="status-item">
+                            <span class="status-label">Video Status:</span>
+                            <span class="status-value" id="profile-video-status"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="profile-status-message"
+                style="margin-top: 2rem; padding: 1.5rem; background: rgba(212,175,55,0.1); border: 1px solid var(--gold-solid); display: none; text-align: center; border-radius: 10px;">
+            </div>
+        </div>
+
+        <!-- Additional Resources Section -->
+        <div class="asset-card reveal active">
+            <h2 class="section-title">ADDITIONAL RESOURCES</h2>
+
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <h3>SPECIALIZED STUDY GUIDES</h3>
+                    <p>Country-specific briefing materials (max 2 pages) tailored to your delegation's interests and
+                        priorities.</p>
+                    <button id="download-specialized-btn" class="gold-border-btn">DOWNLOAD YOURS</button>
+                </div>
+
+                <div class="resource-card">
+                    <h3>OFFICIAL SOURCES</h3>
+                    <p>Curated official documentation and references from international bodies and governmental sources.
+                    </p>
+                    <button id="view-sources-btn" class="gold-border-btn">VIEW SOURCES</button>
+                </div>
+
+                <div class="resource-card">
+                    <h3>TRAINING MATERIALS</h3>
+                    <p>Procedural training videos and Q&A resources to enhance your understanding of consensus
+                        protocols.</p>
+                    <button id="view-training-btn" class="gold-border-btn">VIEW TRAINING</button>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer reveal active" style="margin-top: 5rem; text-align: center;">
+            <p>Made with dedication & efforts,</p>
+            <span class="team-cursive">Team Recessus Concessus</span>
+        </footer>
+
+    </div>
+
+    <script src="js/scroll.js"></script>
+    <script type="module" src="js/delegate-enhanced.js"></script>
+    <script>
+        // Basic Logout Logic
+        window.logoutUser = function () {
+            localStorage.clear();
+            window.location.href = 'index-enhanced.html';
+        }
+
+        // Display user info from local storage
+        const user = localStorage.getItem('recessus_user');
+        const allocation = localStorage.getItem('recessus_allocation');
+        const attendance = localStorage.getItem('recessus_attendance');
+
+        if (user) {
+            document.getElementById('user-display').textContent = user.toUpperCase();
+            document.getElementById('allocation-display').textContent = allocation ? allocation.toUpperCase() : '';
+            document.getElementById('attendance-display').textContent = attendance ? '(' + attendance.replace('_', ' ').toUpperCase() + ')' : '';
+        }
+    </script>
+</body>
+
+</html>

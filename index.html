@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recessus Concessus | Crescendo 2026</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;700&family=Gideon+Roman&family=Great+Vibes&family=Share+Tech+Mono&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style-enhanced.css">
+
+    <style>
+        /* Specific Landing Page Refinements */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: radial-gradient(circle at center, rgba(212, 175, 55, 0.15) 0%, transparent 70%);
+            position: relative;
+        }
+
+        .welcome-text {
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            color: var(--gold-solid);
+            margin-bottom: 1rem;
+            letter-spacing: 3px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .gigantic-title {
+            font-family: 'Cinzel Decorative', cursive;
+            font-size: clamp(3rem, 10vw, 6rem) !important;
+            background: linear-gradient(135deg, var(--gold-solid), #fcf6ba, var(--gold-solid)) !important;
+            -webkit-background-clip: text !important;
+            background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            margin: 1.5rem 0 !important;
+            text-shadow: 0 0 30px rgba(212, 175, 55, 0.4) !important;
+            position: relative;
+            z-index: 10;
+            line-height: 1.1;
+        }
+
+        .accent-line {
+            width: 200px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold-solid), transparent);
+            margin: 2rem auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        .letter-frame {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.85), rgba(15, 23, 42, 0.7)) !important;
+            border: 1px solid rgba(212, 175, 55, 0.3) !important;
+            padding: 5rem !important;
+            border-radius: 20px !important;
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6) !important;
+            backdrop-filter: blur(20px);
+            max-width: 1000px !important;
+            margin: 6rem auto !important;
+            position: relative;
+        }
+
+        .letter-frame::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            pointer-events: none;
+            border-radius: 10px;
+        }
+
+        .gold-heading {
+            font-family: 'Cinzel', serif;
+            color: var(--gold-solid);
+            letter-spacing: 4px;
+            text-shadow: 0 2px 10px rgba(212, 175, 55, 0.3);
+            margin-bottom: 3rem;
+            font-size: 2rem;
+        }
+
+        .letter-content p {
+            font-family: 'Gideon Roman', serif;
+            font-size: 1.2rem;
+            line-height: 1.9;
+            margin-bottom: 2rem;
+            color: rgba(255, 255, 255, 0.9);
+            text-align: justify;
+        }
+
+        .signature {
+            font-family: 'Great Vibes', cursive !important;
+            font-size: 2.5rem !important;
+            color: var(--gold-solid) !important;
+            margin-top: 4rem;
+            text-align: right !important;
+            background: var(--gold-metallic);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .login-card {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.9), rgba(2, 6, 23, 0.95)) !important;
+            border: 2px solid var(--gold-solid) !important;
+            padding: 5rem !important;
+            border-radius: 20px !important;
+            box-shadow: 0 0 60px rgba(0, 210, 255, 0.15) !important;
+            backdrop-filter: blur(25px);
+            max-width: 600px !important;
+        }
+
+        .form-group label {
+            font-family: 'Cinzel', serif;
+            color: var(--gold-solid);
+            letter-spacing: 2px;
+            font-size: 0.85rem;
+            margin-bottom: 0.8rem;
+            display: block;
+        }
+
+        .form-input {
+            background: rgba(255, 255, 255, 0.05) !important;
+            border: 1px solid var(--gold-solid) !important;
+            color: white !important;
+            padding: 1.2rem !important;
+            border-radius: 8px !important;
+            font-family: 'Share Tech Mono', monospace !important;
+            font-size: 1rem !important;
+            transition: all 0.3s ease;
+            text-align: center !important;
+            width: 100%;
+        }
+
+        .form-input:focus {
+            background: rgba(255, 255, 255, 0.1) !important;
+            border-color: var(--accent) !important;
+            box-shadow: 0 0 20px rgba(0, 210, 255, 0.2) !important;
+            outline: none;
+        }
+
+        .assets-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 4rem auto;
+        }
+
+        .detail-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), transparent) !important;
+            border: 1px solid rgba(212, 175, 55, 0.2) !important;
+            padding: 4rem 3rem !important;
+            border-radius: 20px !important;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(10px);
+        }
+
+        .detail-card:hover {
+            border-color: var(--accent) !important;
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .footer {
+            padding: 8rem 2rem;
+            background: linear-gradient(0deg, #020617 0%, transparent 100%);
+        }
+
+        .contact-box {
+            background: rgba(0, 210, 255, 0.05);
+            padding: 2rem 4rem;
+            border: 1px solid rgba(0, 210, 255, 0.2);
+            border-radius: 100px;
+            display: inline-block;
+            font-family: 'Share Tech Mono', monospace;
+            letter-spacing: 3px;
+            color: var(--accent);
+            text-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
+        }
+
+        .section-title {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 2.5rem !important;
+            color: var(--gold-solid) !important;
+            margin-bottom: 3rem !important;
+            letter-spacing: 5px !important;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body class="terminal-body">
+
+    <div class="top-right-branding">
+        <div class="branding-text">MISSION STATUS: <span style="color: var(--accent);">GLOBAL STANDBY</span> // 2026
+        </div>
+        <img src="assets/crescendo-logo.png" alt="Crescendo Logo" class="mini-logo">
+    </div>
+
+    <header class="hero">
+        <div class="title-container centered-content">
+            <p class="welcome-text reveal active">LPHS WELCOMES YOU TO THE STRATEGIC FRONTIER</p>
+            <h1 class="gigantic-title reveal active">RECESSUS CONCESSUS</h1>
+            <div class="accent-line reveal active"></div>
+
+            <div class="reveal active" style="margin-top: 4rem;">
+                <a href="#letter-section" class="gold-action-btn"
+                    style="padding: 1.5rem 4rem; font-size: 1.1rem;">ACCESS COMMUNIQUÉ</a>
+            </div>
+        </div>
+    </header>
+
+    <section id="letter-section" class="content-section centered-content">
+        <div class="container letter-frame reveal active">
+            <h2 class="gold-heading">FROM THE DESK OF THE EVENT HEAD</h2>
+
+            <div class="letter-content">
+                <p>Dear Participant,</p>
+                <p>Warm greetings from Lilavatibai Podar High School. It gives me great pleasure to welcome you to LPHS'
+                    signature commerce fest, Crescendo 2026.</p>
+
+                <p>Crescendo proudly celebrates its 6th edition this year, and one of its flagship events, Recessus
+                    Consensus, marks its 4th edition with equal pride. Since its inception in 2023, Recessus Consensus
+                    has evolved from a multinational forum into an Indian body that gives voice to students across the
+                    country on Indian affairs, discussed in an intrinsically Indian manner.</p>
+
+                <p>The months following Crescendo 2025 have witnessed tumultuous global changes and the emergence of a
+                    new world order. The rise of "Trumponomics" has seen Trump's policies wreck multiple economies while
+                    simultaneously causing massive booms in others. At the same time, documents such as the Epstein
+                    files have upended geopolitical and financial structures, while Iran's government faces massive
+                    turmoil after American-Israeli actions resulted in a quasi-war situation.</p>
+
+                <p>Regions such as Dubai, Abu Dhabi, Manama, Doha, Baghdad, Aleppo, and Damascus have come under heavy
+                    drone fire. The year 2026 has already been deeply shaped by American policy—from the fall of the
+                    Maduro administration in Caracas to the conflict in the Middle East and the resistance in Ukraine.
+                </p>
+
+                <p>Recessus Consensus 2026 aims to examine these very issues and their impact on developing countries
+                    like India. I look forward to seeing you at Crescendo 2026!</p>
+
+                <div class="signature">Warm regards,<br>Garima Verma</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="study-guide-section" class="content-section centered-content">
+        <div class="container reveal active">
+            <p class="welcome-text" style="font-size: 1rem; opacity: 0.7; letter-spacing: 8px; margin-bottom: 1.5rem;">
+                CLASSIFIED // ACADEMIC DOSSIER
+            </p>
+            <h2 class="section-title">MISSION ASSETS</h2>
+
+            <div class="assets-grid">
+                <div class="detail-card">
+                    <h3 class="gold-heading" style="font-size: 1.8rem; margin-bottom: 2rem;">STUDY GUIDE</h3>
+                    <p style="opacity: 0.9; line-height: 1.8; margin-bottom: 3rem; font-family: 'Gideon Roman', serif;">
+                        The definitive 4th Edition briefing
+                        on "Trumponomics," the Epstein Files, and the evolving world order. Essential tactical data for
+                        all delegates.</p>
+
+                    <a href="assets/Crescendo 2026 Recessus Consensus Study Guide.pdf" target="_blank"
+                        class="gold-action-btn"
+                        style="padding: 1.2rem 2.5rem; font-size: 0.9rem; width: 100%; text-align: center;">
+                        DOWNLOAD ASSET DATA
+                    </a>
+                </div>
+
+                <div class="detail-card">
+                    <h3 class="gold-heading" style="font-size: 1.8rem; margin-bottom: 2rem;">PROTOCOL</h3>
+                    <p style="opacity: 0.9; line-height: 1.8; margin-bottom: 3rem; font-family: 'Gideon Roman', serif;">
+                        Official Rules of Procedure for the
+                        Indian-style Parliamentary Debate and continuous crisis flow. Operational parameters for the
+                        chamber.</p>
+                    <a href="assets/Rules_of_Procedure.pdf" target="_blank" class="gold-border-btn"
+                        style="width: 100%; text-align: center; display: block; padding: 1.2rem;">VIEW PROTOCOLS</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="login-gate" class="content-section centered-content reveal active" style="margin: 10rem 0;">
+        <div class="login-card">
+            <h2 class="gold-heading" style="font-size: 2.2rem;">SECURE GATEWAY</h2>
+            <form id="login-form">
+                <div class="form-group" style="margin-bottom: 2.5rem;">
+                    <label>DELEGATE CALLSIGN</label>
+                    <input type="text" id="username" placeholder="IDENTIFY YOURSELF" class="form-input" required>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 2.5rem;">
+                    <label>ACCESS KEY</label>
+                    <input type="password" id="password" placeholder="ENTER ENCRYPTION KEY" class="form-input" required>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 2.5rem;">
+                    <label>GEOPOLITICAL ALLOCATION</label>
+                    <select id="allocation" required class="form-input" style="appearance: none; cursor: pointer;">
+                        <option value="">SELECT ALLOCATED STATE</option>
+                        <option value="United States">United States of America</option>
+                        <option value="United Kingdom">United Kingdom</option>
+                        <option value="Israel">State of Israel</option>
+                        <option value="Japan">Imperial State of Japan</option>
+                        <option value="South Korea">Republic of Korea</option>
+                        <option value="France">Fifth French Republic</option>
+                        <option value="Germany">Federal Republic of Germany</option>
+                        <option value="European Union">European Union</option>
+                        <option value="Switzerland">Swiss Confederation</option>
+                        <option value="African Union">African Union</option>
+                        <option value="India">Union of India</option>
+                        <option value="China">People's Republic of China</option>
+                        <option value="Russia">Russian Federation</option>
+                        <option value="Saudi Arabia">Kingdom of Saudi Arabia</option>
+                        <option value="Arab League">Arab League</option>
+                    </select>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 4rem;">
+                    <label>PARTICIPATION STATUS</label>
+                    <select id="participation" required class="form-input" style="appearance: none; cursor: pointer;">
+                        <option value="">SELECT STATUS</option>
+                        <option value="voting">Present and Voting</option>
+                        <option value="present">Present (Observer)</option>
+                    </select>
+                    <p
+                        style="font-size: 0.8rem; opacity: 0.6; margin-top: 1.5rem; font-family: 'Share Tech Mono', monospace; text-transform: uppercase; letter-spacing: 1px;">
+                        Status determines tactical voting rights in chamber
+                    </p>
+                </div>
+
+                <button type="submit" class="gold-action-btn" style="width: 100%; padding: 1.5rem;">INITIALIZE
+                    UPLINK</button>
+                <p id="error-msg"
+                    style="color: #ff4b2b; margin-top: 2rem; font-family: 'Share Tech Mono', monospace; font-size: 0.9rem;">
+                </p>
+                <p id="event-status"
+                    style="color: #ff4b2b; margin-top: 2rem; display: none; font-family: 'Share Tech Mono', monospace; font-size: 0.9rem;">
+                </p>
+            </form>
+        </div>
+    </section>
+
+    <footer class="footer centered-content reveal active">
+        <div class="contact-box">
+            LIAISON UPLINK: <a href="mailto:ops@recessusconcessus.com"
+                style="color: var(--accent); text-decoration: none;">OPS@RECESSUSCONCESSUS.COM</a>
+        </div>
+
+        <p
+            style="margin-top: 5rem; opacity: 0.8; font-family: 'Gideon Roman', serif; letter-spacing: 2px; text-transform: uppercase; font-size: 0.9rem;">
+            Produced with dedication & tactical precision</p>
+        <div class="team-cursive">Team Recessus Concessus</div>
+
+        <div style="margin-top: 6rem; opacity: 0.4;">
+            <a href="admin-enhanced.html"
+                style="color: var(--gold-solid); text-decoration: none; font-size: 0.8rem; font-family: 'Share Tech Mono', monospace; border: 1px solid rgba(212,175,55,0.3); padding: 0.5rem 1rem; border-radius: 4px;">[
+                SECURE COMMAND OVERRIDE ]</a>
+        </div>
+    </footer>
+
+    <script src="js/scroll.js"></script>
+    <script type="module" src="js/login-enhanced.js"></script>
+</body>
+
+</html>
